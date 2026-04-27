@@ -1,0 +1,2 @@
+git pull
+codex "$(cat prompts/ingest.md)"
