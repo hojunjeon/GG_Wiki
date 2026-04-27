@@ -1,0 +1,15 @@
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.pytest_cache/
+*.egg-info/
+dist/
+build/
+.venv/
+venv/
+.env
+
+# Obsidian — 사용자별 창 상태 (공유 불필요)
+.obsidian/workspace.json
