@@ -2,8 +2,8 @@ name: Collect Daily IT/AI Sources
 
 on:
   schedule:
-    - cron: '0 21 * * *'  # 21:00 UTC = 다음날 06:00 KST
-  workflow_dispatch:        # 수동 실행 (테스트용)
+    - cron: '0 21 * * *'
+  workflow_dispatch:
 
 jobs:
   collect:
