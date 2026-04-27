@@ -1,101 +1,102 @@
 ---
 source: geeknews
 date: 2026-04-26
-points: 11
-url: "https://github.com/SWE-agent/mini-swe-agent"
-title: mini-swe-agent - 100줄짜리 AI 에이전트로 GitHub 이슈 해결 및 커맨드라인 지원
+points: 22
+url: "https://github.com/h4ckf0r0day/obscura"
+title: Obscura - 오픈소스 헤드리스 브라우저
 ---
 
-# mini-swe-agent - 100줄짜리 AI 에이전트로 GitHub 이슈 해결 및 커맨드라인 지원
+# Obscura - 오픈소스 헤드리스 브라우저
 
-📣 New tutorial on building minimal AI agents
-📣 Gemini 3 Pro reaches 74% on SWE-bench verified with mini-swe-agent!
-📣 New blogpost: Randomly switching between GPT-5 and Sonnet 4 boosts performance
-Warning
-This is mini-swe-agent v2. Read the migration guide. For the previous version, check out the v1 branch.
-In 2024, we built SWE-bench & SWE-agent and helped kickstart the coding agent revolution.
-We now ask: What if our agent was 100x simpler, and still worked nearly as well?
-mini
-is
-- Widely adopted: Used by Meta, NVIDIA, Essential AI, IBM, Nebius, Anyscale, Princeton University, Stanford University, and many more.
-- Minimal: Just some 100 lines of python for the agent class (and a bit more for the environment, model, and run script) — no fancy dependencies!
-- Performant: Scores >74% on the SWE-bench verified benchmark; starts much faster than Claude Code
-- Deployable: Supports local environments, docker/podman, singularity/apptainer, bublewrap, contree, and more
-- Compatible: Supports all models via litellm, openrouter, portkey, and more. Support for
-/completion
-and/response
-endpoints, interleaved thinking etc. - Built by the Princeton & Stanford team behind SWE-bench, SWE-agent, and more
-- Tested:
-More motivation (for research)
-SWE-agent jump-started the development of AI agents in 2024. Back then, we placed a lot of emphasis on tools and special interfaces for the agent.
-However, one year later, as LMs have become more capable, a lot of this is not needed at all to build a useful agent!
-In fact, the mini
-agent
-- Does not have any tools other than bash — it doesn't even need to use the tool-calling interface of the LMs. This means that you can run it with literally any model. When running in sandboxed environments you also don't need to take care of installing a single package — all it needs is bash.
-- Has a completely linear history — every step of the agent just appends to the messages and that's it. So there's no difference between the trajectory and the messages that you pass on to the LM. Great for debugging & fine-tuning.
-- Executes actions with
-subprocess.run
-— every action is completely independent (as opposed to keeping a stateful shell session running). This makes it trivial to execute the actions in sandboxes (literally just switch outsubprocess.run
-withdocker exec
-) and to scale up effortlessly. Seriously, this is a big deal, trust me.
-This makes it perfect as a baseline system and for a system that puts the language model (rather than
-the agent scaffold) in the middle of our attention.
-You can see the result on the SWE-bench (bash only) leaderboard, that evaluates the performance of different LMs with mini
+The open-source headless browser for AI agents and web scraping.
+Lightweight, stealthy, and built in Rust.
+Obscura is a headless browser engine written in Rust, built for web scraping and AI agent automation. It runs real JavaScript via V8, supports the Chrome DevTools Protocol, and acts as a drop-in replacement for headless Chrome with Puppeteer and Playwright.
+Designed for automation at scale, not desktop browsing.
+Grab the latest binary from Releases:
+# Linux x86_64
+curl -LO https://github.com/h4ckf0r0day/obscura/releases/latest/download/obscura-x86_64-linux.tar.gz
+tar xzf obscura-x86_64-linux.tar.gz
+./obscura fetch https://example.com --eval "document.title"
+# macOS Apple Silicon
+curl -LO https://github.com/h4ckf0r0day/obscura/releases/latest/download/obscura-aarch64-macos.tar.gz
+tar xzf obscura-aarch64-macos.tar.gz
+# macOS Intel
+curl -LO https://github.com/h4ckf0r0day/obscura/releases/latest/download/obscura-x86_64-macos.tar.gz
+tar xzf obscura-x86_64-macos.tar.gz
+# Windows
+Download the `.zip` from the releases page and extract it manually.
+Single binary. No Chrome, no Node.js, no dependencies.
+git clone https://github.com/h4ckf0r0day/obscura.git
+cd obscura
+cargo build --release
+# With stealth mode (anti-detection + tracker blocking)
+cargo build --release --features stealth
+Requires Rust 1.75+ (rustup.rs). First build takes ~5 min (V8 compiles from source, cached after).
+# Get the page title
+obscura fetch https://example.com --eval "document.title"
+# Extract all links
+obscura fetch https://example.com --dump links
+# Render JavaScript and dump HTML
+obscura fetch https://news.ycombinator.com --dump html
+# Wait for dynamic content
+obscura fetch https://example.com --wait-until networkidle0
+obscura serve --port 9222
+# With stealth mode (anti-detection + tracker blocking)
+obscura serve --port 9222 --stealth
+obscura scrape url1 url2 url3 ... \
+--concurrency 25 \
+--eval "document.querySelector('h1').textContent" \
+--format json
+npm install puppeteer-core
+import puppeteer from 'puppeteer-core';
+const browser = await puppeteer.connect({
+browserWSEndpoint: 'ws://127.0.0.1:9222/devtools/browser',
+});
+const page = await browser.newPage();
+await page.goto('https://news.ycombinator.com');
+const stories = await page.evaluate(() =>
+Array.from(document.querySelectorAll('.titleline > a'))
+.map(a => ({ title: a.textContent, url: a.href }))
+);
+console.log(stories);
+await browser.disconnect();
+npm install playwright-core
+import { chromium } from 'playwright-core';
+const browser = await chromium.connectOverCDP({
+endpointURL: 'ws://127.0.0.1:9222',
+});
+const page = await browser.newContext().then(ctx => ctx.newPage());
+await page.goto('https://en.wikipedia.org/wiki/Web_scraping');
+console.log(await page.title());
+await browser.close();
+await page.goto('https://quotes.toscrape.com/login');
+await page.evaluate(() => {
+document.querySelector('#username').value = 'admin';
+document.querySelector('#password').value = 'admin';
+document.querySelector('form').submit();
+});
+// Obscura handles the POST, follows the 302 redirect, maintains cookies
+Page load:
+Enable with --features stealth
 .
-More motivation (as a tool)
-Some agents are overfitted research artifacts. Others are UI-heavy frontend monsters.
-The mini
-agent wants to be a hackable tool, not a black box.
-- Simple enough to understand at a glance
-- Convenient enough to use in daily workflows
-- Flexible to extend
-Unlike other agents (including our own swe-agent), it is radically simpler, because it:
-- Does not have any tools other than bash — it doesn't even need to use the tool-calling interface of the LMs. Instead of implementing custom tools for every specific thing the agent might want to do, the focus is fully on the LM utilizing the shell to its full potential. Want it to do something specific like opening a PR? Just tell the LM to figure it out rather than spending time to implement it in the agent.
-- Executes actions with
-subprocess.run
-— every action is completely independent (as opposed to keeping a stateful shell session running). This is a big deal for the stability of the agent, trust me. - Has a completely linear history — every step of the agent just appends to the messages that are passed to the LM in the next step and that's it. This is great for debugging and understanding what the LM is prompted with.
-Should I use SWE-agent or mini-SWE-agent?
-You should consider mini-swe-agent
-your default choice.
-In particular, you should use mini-swe-agent
-if
-- You want a quick command line tool that works locally
-- You want an agent with a very simple control flow
-- You want even faster, simpler & more stable sandboxing & benchmark evaluations
-- You are doing FT or RL and don't want to overfit to a specific agent scaffold
-You should use swe-agent
-if
-- You want to experiment with different sets of tools, each with their own interface
-- You want to experiment with different history processors
-What you get with both
-- Excellent performance on SWE-Bench
-- A trajectory browser
-Option 1: If you just want to try out the CLI (package installed in anonymous virtual environment)
-pip install uv && uvx mini-swe-agent
-# or
-pip install pipx && pipx ensurepath && pipx run mini-swe-agent
-Option 2: Install CLI & python bindings in current environment
-pip install mini-swe-agent
-mini # run the CLI
-Option 3: Install from source (developer setup)
-git clone https://github.com/SWE-agent/mini-swe-agent.git
-cd mini-swe-agent && pip install -e .
-mini # run the CLI
-Read more in our documentation:
-- Quick start guide
-- Using the
-mini
-CLI - Global configuration
-- Yaml configuration files
-- Power up with the cookbook
-- FAQ
-- Contribute!
-If you found this work helpful, please consider citing the SWE-agent paper in your work:
-@inproceedings{yang2024sweagent,
-title={{SWE}-agent: Agent-Computer Interfaces Enable Automated Software Engineering},
-author={John Yang and Carlos E Jimenez and Alexander Wettig and Kilian Lieret and Shunyu Yao and Karthik R Narasimhan and Ofir Press},
-booktitle={The Thirty-eighth Annual Conference on Neural Information Processing Systems},
-year={2024},
-url={https://arxiv.org/abs/2405.15793}
-}
-Our other projects:
+- Per-session fingerprint randomization (GPU, screen, canvas, audio, battery)
+- Realistic
+navigator.userAgentData
+(Chrome 145, high-entropy values) event.isTrusted = true
+for dispatched events- Hidden internal properties (
+Object.keys(window)
+safe) - Native function masking (
+Function.prototype.toString()
+→[native code]
+) navigator.webdriver = undefined
+(matches real Chrome)
+- 3,520 domains blocked
+- Blocks analytics, ads, telemetry, and fingerprinting scripts
+- Prevents trackers from loading entirely
+- Enabled automatically with
+--stealth
+Obscura implements the Chrome DevTools Protocol for Puppeteer/Playwright compatibility.
+Start a CDP WebSocket server.
+Fetch and render a single page.
+Scrape multiple URLs in parallel with worker processes.
+Apache 2.0

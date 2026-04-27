@@ -1,7 +1,7 @@
 ---
 source: github
 date: 2026-04-26
-stars_today: 2519
+stars_today: 5551
 url: "https://github.com/mattpocock/skills"
 language: Shell
 title: mattpocock/skills

@@ -1,7 +1,7 @@
 ---
 source: github
 date: 2026-04-26
-stars_today: 1701
+stars_today: 2973
 url: "https://github.com/Alishahryar1/free-claude-code"
 language: Python
 title: Alishahryar1/free-claude-code
