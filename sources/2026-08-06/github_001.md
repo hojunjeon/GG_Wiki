@@ -1,142 +1,119 @@
 ---
 source: github
 date: 2026-08-06
-stars_today: 2802
-url: "https://github.com/cloudflare/computer"
+stars_today: 2271
+url: "https://github.com/PrimeIntellect-ai/prime-agent"
 language: TypeScript
-title: cloudflare/computer
+title: PrimeIntellect-ai/prime-agent
 ---
 
-# cloudflare/computer
+# PrimeIntellect-ai/prime-agent
 
-# Cloudflare Computer
+<p align="center">
+  <a href="https://primeintellect.ai">
+    <picture>
+      <source media="(prefers-color-scheme: light)" srcset="https://github.com/user-attachments/assets/40c36e38-c5bd-4c5a-9cb3-f7b902cd155d">
+      <source media="(prefers-color-scheme: dark)" srcset="https://github.com/user-attachments/assets/6414bc9b-126b-41ca-9307-9e982430cde8">
+      <img alt="Prime Intellect" src="https://github.com/user-attachments/assets/6414bc9b-126b-41ca-9307-9e982430cde8" width="312" style="max-width: 100%;">
+    </picture>
+  </a>
+</p>
 
-Cloudflare Computer is a virtual filesystem that lives inside a
-Durable Object. The Durable Object holds the authoritative state in
-SQLite and exposes one pluggable execution surface through
-`workspace.runtime`. Three backends ship today:
+<h3 align="center">
+Prime Agent: A Self-Improving RLM Agent
+</h3>
 
-- **Container** projects the SQLite state into a sandbox container as
-  a real FUSE mount. A sandbox-side daemon (`computerd`) mounts the state
-  as a filesystem and syncs changes back over a capnweb RPC channel.
-  Full Linux userland, real binaries, real network.
-- **Isolate shell** runs [just-bash](https://github.com/vercel-labs/just-bash)
-  in a Dynamic Worker. It reaches the authoritative Workspace over
-  Workers RPC, so there is no second store or sync round trip.
-- **Isolate JavaScript** runs an ECMAScript module in a fresh Dynamic
-  Worker with structured input/results, durable relative imports,
-  configured libraries, Workspace-backed `node:fs/promises`, and trusted `ws:git` and
-  `ws:artifacts` modules.
+<p align="center">
+  <a href="packages/coding-agent/docs/index.md">Documentation</a> &bull;
+  <a href="https://github.com/PrimeIntellect-ai/verifiers">Verifiers</a> &bull;
+  <a href="https://github.com/PrimeIntellect-ai/prime-rl">PRIME-RL</a> &bull;
+  <a href="https://github.com/badlogic/pi-mono">pi-mono</a>
+</p>
 
-A Workspace may register multiple backends under stable IDs.
-`workspace.runtime.exec(source, { backend })` is the single execution
-entry point; the selected backend defines whether `source` is a shell
-command or an ECMAScript module. Backends connect lazily on first use.
+<p align="center">
+  <a href="https://github.com/PrimeIntellect-ai/prime-agent/actions/workflows/ci.yml">
+    <img src="https://github.com/PrimeIntellect-ai/prime-agent/actions/workflows/ci.yml/badge.svg" alt="CI" />
+  </a>
+  <a href="https://github.com/PrimeIntellect-ai/prime-agent/actions/workflows/build-binaries.yml">
+    <img src="https://github.com/PrimeIntellect-ai/prime-agent/actions/workflows/build-binaries.yml/badge.svg" alt="Build Binaries" />
+  </a>
+</p>
 
-Workspace can also be constructed without a backend at all, giving
-callers the filesystem on its own.
+Prime Agent is an open-source coding and research agent for general and long-running work. It is designed around two core abstractions:
 
-> [!IMPORTANT]
-> **PREVIEW ONLY** This package is provided as a preview for feedback only.
-> APIs are unstable and the design is subject to change.
->
-> Suitable for experiments, exploration and prototypes. It is NOT suitable
-> for production use at this time.
->
-> The specification under [`docs/`](docs/) is forward-looking — read it for
-> intent, not as description of the code today.
+- The **[Recursive Language Model (RLM)](https://www.primeintellect.ai/blog/rlm)** treats context as variables (*prompt-as-a-variable*) and tools like recursive subagents as function calls (*programmatic tool /sub-agent calling*) inside a persistent REPL.
+- The **[Continual Harness](https://arxiv.org/abs/2605.09998)** stores supplemental prompts, memories, skill descriptions, and reusable subagent specifications as durable state that Prime Agent can refine through small, evidence-backed updates, local to the session by default.
 
-## Using it
+Prime Agent combines a persistent Python control environment with durable harness state, so useful working context and reusable operating patterns can outlive a single chat window.
 
-If you want to build on Cloudflare Computer, install
-[`@cloudflare/computer`](packages/computer/README.md) and follow that
-package's README — it has the installation steps, the entrypoint map,
-and worked examples of the `fs` and `runtime` surfaces.
+- **Everything is programmatic:** persistent IPython is the built-in model tool; file operations, shell commands, tool use, subagents, and context management happen through code.
+- **Subagents are built in:** `rlm(...)` spawns real child agents for parallel or background work and returns their results programmatically.
+- **The harness can improve:** `/refine` reviews the current trajectory and can apply small, evidence-backed updates to supplemental harness state. It never rewrites the immutable base system prompt, and recorded snapshots support rollback.
+- **Skills are executable:** skills are importable Python packages, and the built-in skill creator can turn recurring workflows into project or personal skills.
+- **Sessions run in the background:** daemon-backed agents keep running when the terminal disconnects and can be reattached later.
+- **Agents communicate directly:** running agents can exchange messages and orchestrate one another without routing everything through the user.
+- **Long tasks keep moving:** automatic compaction, persistent goals, heartbeats, schedules, autonomous mode, and retained subagents preserve progress across turns and terminal sessions.
 
-To contribute feedback, see [`CONTRIBUTING.md`](CONTRIBUTING.md).
-Approved collaborators should follow [`COLLABORATORS.md`](COLLABORATORS.md)
-for setup, build, and test instructions.
+## Getting Started
 
-## Examples
+Install the latest stable release on macOS or Linux:
 
-The [`examples/`](examples) directory holds runnable consumers of the
-public surface. Each is a Worker workspace with its own README.
+```bash
+curl -fsSL https://app.primeintellect.ai/prime-agent/install.sh | sh
+```
 
-- [`examples/container`](examples/container) — runs `computerd` inside a
-  container, mounts a workspace, and talks to a Durable Object over
-  capnweb. A `write` / `read` / `exec` HTTP surface.
-- [`examples/worker-shell`](examples/worker-shell) — same HTTP surface as the
-  container example, but the shell runs [just-bash](https://github.com/vercel-labs/just-bash)
-  in a Dynamic Worker loaded through `env.LOADER`. No container.
-- [`examples/worker-javascript`](examples/worker-javascript) — mirrors
-  `worker-shell`, but `exec` evaluates an ECMAScript module in a Dynamic
-  Worker instead of running a shell command.
-- [`examples/think`](examples/think) — a [`@cloudflare/think`](https://www.npmjs.com/package/@cloudflare/think)
-  chat agent that uses the workspace as its working directory, reachable
-  from a terminal.
-- [`examples/think-compare-runtimes`](examples/think-compare-runtimes) —
-  a web UI that runs the same agent task against the container and
-  worker runtimes side by side.
-- [`examples/tutorial`](examples/tutorial) — a step-by-step build: one
-  endpoint, one agent that writes a markdown recipe card on the host and
-  runs `pandoc` on it in the container to produce a PDF.
-- [`examples/artifacts`](examples/artifacts) — generates a Worker project
-  in a workspace and publishes it to Cloudflare Artifacts as a
-  clone-ready repo.
-- [`examples/assets`](examples/assets) — turns a prompt into an image with
-  Workers AI, writes it to the workspace, and returns a shareable link
-  through `@cloudflare/computer/assets`.
+The installer downloads a versioned release, verifies its SHA-256 checksum, installs the `prime-agent` command, and can prepare the IPython runtime used by the agent.
 
-## Repository layout
+Start Prime Agent from the repository or directory you want it to work in:
 
-The repo is a small monorepo. Each package has its own README with
-package-specific status and usage notes.
+```bash
+cd /path/to/project
+prime-agent
+```
 
-- [`packages/dofs`](packages/dofs/README.md) (`@cloudflare/dofs`) —
-  Durable Object SQLite-backed virtual filesystem, sync protocol
-  building blocks, and a `@platformatic/vfs` provider for Node.
-- [`packages/rpc`](packages/rpc/README.md)
-  (`@cloudflare/computer-rpc`) — capnweb wire types and
-  server/client helpers shared between the Durable Object and `computerd`.
-- [`packages/computerd`](packages/computerd/README.md)
-  (`@cloudflare/computerd`) — the `computerd` daemon: a FUSE mount plus
-  HTTP/WebSocket RPC server that runs inside the sandbox container.
-- [`packages/computer`](packages/computer/README.md)
-  (`@cloudflare/computer`) — the top-level Computer package
-  consumed by Durable Objects. Work in progress.
-- [`packages/computer-computerd-linux-x64`](packages/computer-computerd-linux-x64/README.md)
-  — private Docker image context for the prebuilt `computerd` linux-x64
-  binary. The image, not an npm package, is the release artifact.
+On first launch, run `/login` to choose a subscription or API-key provider. Prime Agent works in the current directory and can run commands and modify files there. Use a disposable clone, clean worktree, or another checkpoint you can inspect and restore.
 
-## Performance
+> [!WARNING]
+> Prime Agent executes model-generated Python and project commands with your user permissions. Its worker and kernel processes improve lifecycle isolation and recovery; they are **not** a security sandbox. Review changes and use trusted repositories, instructions, skills, and extensions only. Run untrusted code or instructions in an external sandbox or restricted environment.
 
-computerd's FUSE mount beats real disk on metadata-heavy work and
-trails it on large sequential I/O. See
-[`docs/19_performance.md`](docs/19_performance.md) for the full `fs-bench`
-numbers, a `cloudflare/sandbox-sdk` `npm install` comparison, and how
-to reproduce them.
+Useful commands:
+
+```bash
+prime-agent agents                   # Browse running, idle, and saved sessions
+prime-agent attach <agent>           # Reattach to a running session
+prime-agent --resume <path|id>       # Resume a saved session
+prime-agent status                   # Inspect background service state
+prime-agent doctor [--fix]           # Inspect or repair background services
+prime-agent update [--force]         # Update Prime Agent
+prime-agent shutdown [--force]       # Stop every agent, worker, and background service
+```
+
+## Built for Long-Running Work
+Prime Agent is built for long-running work, especially for evaluations in research. These features are available in the TUI, and when run autonomously. 
+
+- **Continual Harness:** `/refine` can persist focused, reviewable lessons as supplemental prompts, memories, reusable skill descriptions, or subagent specifications, with recorded refinement history. It does not replace packaging and reviewing new executable skills.
+- **Direct agent-to-agent communication:** running agents and retained subagents can discover one another, exchange messages, and steer active work.
+- **Daemon-backed continuity:** active sessions, IPython state, schedules, and subagents keep running when the terminal detaches and can be reattached later.
+- **Heartbeats and schedules:** `/heartbeat`, `rlm_heartbeat`, and `prime-agent schedule` can re-enter a session periodically or at a specific time.
+- **Persistent goals:** `/goal` keeps an objective and its progress active across turns until it is completed, paused, or cleared.
+- **Bounded autonomous mode:** `/autonomous` continues within configured turn, token, and time budgets and can run user-defined quality gates. A passed gate checks only what that gate verifies; reaching a limit does not imply task success.
 
 ## Documentation
 
-- [`docs/`](docs/README.md) — design specification. Forward-looking;
-  treat as intent.
-- [`docs/19_performance.md`](docs/19_performance.md) — filesystem benchmarks.
+- [Quickstart](packages/coding-agent/docs/quickstart.md) — install, authenticate, and run a first session
+- [Usage and CLI reference](packages/coding-agent/docs/usage.md) — commands, sessions, autonomous limits, and output modes
+- [Long-running and background agents](packages/coding-agent/docs/long-running-agents.md) — detach and reattach, goals, heartbeats, and schedules
+- [RLM programming model](packages/coding-agent/docs/rlm.md) — persistent IPython, subagents, skills, and the trust model
+- [JSON mode](packages/coding-agent/docs/json.md) and [RPC mode](packages/coding-agent/docs/rpc.md) — headless automation and integrations
+- [Skills](packages/coding-agent/docs/skills.md) — install and create reusable capabilities
+- [Provider setup](packages/coding-agent/docs/providers.md) — subscription and API-key providers
+- [Architecture overview](packages/coding-agent/docs/architecture.md) — daemon, worker, kernel, and persistence boundaries
+- [Development](packages/coding-agent/docs/development.md) — build and run from source
 
-## Contributing
+## Acknowledgements
 
-We accept bug reports, fix proposals, feature requests, and design
-proposals through issues and discussions. We do not accept unsolicited
-pull requests. See [`CONTRIBUTING.md`](CONTRIBUTING.md) for the public
-contribution paths.
-
-Approved collaborators should follow
-[`COLLABORATORS.md`](COLLABORATORS.md) for setup, formatting, testing,
-commit message, and pull request conventions.
-
-If you're working in this repo as an agent, start with
-[`AGENTS.md`](AGENTS.md) and the skills under
-[`.agents/skills/`](.agents/skills/).
+Our agent and TUI is built on top of [`pi`](https://github.com/earendil-works/pi). We thank the authors of `pi` for their valuable work.
 
 ## License
 
-MIT. See [`LICENSE`](LICENSE).
+Prime Agent is fully open source and released under the [MIT License](LICENSE).

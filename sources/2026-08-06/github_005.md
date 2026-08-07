@@ -1,7 +1,7 @@
 ---
 source: github
 date: 2026-08-06
-stars_today: 858
+stars_today: 794
 url: "https://github.com/obra/superpowers"
 language: Shell
 title: obra/superpowers
