@@ -1,7 +1,7 @@
 ---
 source: github
 date: 2026-08-28
-stars_today: 1144
+stars_today: 809
 url: "https://github.com/calesthio/OpenMontage"
 language: Python
 title: calesthio/OpenMontage

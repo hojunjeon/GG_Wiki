@@ -1,7 +1,7 @@
 ---
 source: github
 date: 2026-08-28
-stars_today: 965
+stars_today: 790
 url: "https://github.com/tailscale/tailcat"
 language: Go
 title: tailscale/tailcat
@@ -432,7 +432,7 @@ followed by base64-encoded [CBOR](https://cbor.io/) containing:
 
 - The server's WireGuard public key (Curve25519, 32 bytes)
 - DERP info. Either:
-  1. a small integer referencing one of the default [Tailscale-run tailcat servers](https://tailcat.dev/derpmap.json)), or
+  1. a small integer referencing one of the default [Tailscale-run tailcat servers](https://tailcat.dev/derpmap.json), or
   2. full DERP server metadata, to either use a custom DERP server, or to avoid the client needing a potential round-trip to fetch the latest DERP map (the server's `--full-address` flag and the `tailcat resolve` subcommand produce this form)
 
 A typical token with just an integer region ID is around 50 bytes. With embedded
