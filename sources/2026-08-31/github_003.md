@@ -1,7 +1,7 @@
 ---
 source: github
 date: 2026-08-31
-stars_today: 1980
+stars_today: 914
 url: "https://github.com/K-Dense-AI/scientific-agent-skills"
 language: Python
 title: K-Dense-AI/scientific-agent-skills
