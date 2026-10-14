@@ -1,7 +1,7 @@
 ---
 source: github
 date: 2026-10-13
-stars_today: 969
+stars_today: 946
 url: "https://github.com/mksglu/context-mode"
 language: TypeScript
 title: mksglu/context-mode
