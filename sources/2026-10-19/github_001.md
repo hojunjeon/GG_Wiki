@@ -1,7 +1,7 @@
 ---
 source: github
 date: 2026-10-19
-stars_today: 3856
+stars_today: 3890
 url: "https://github.com/MadsLorentzen/ai-job-search"
 language: Python
 title: MadsLorentzen/ai-job-search
