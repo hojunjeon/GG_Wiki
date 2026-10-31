@@ -1,234 +1,477 @@
 ---
 source: github
 date: 2026-10-30
-stars_today: 2300
-url: "https://github.com/pbakaus/impeccable"
-language: Rust
-title: pbakaus/impeccable
+stars_today: 1723
+url: "https://github.com/thedotmack/claude-mem"
+language: TypeScript
+title: thedotmack/claude-mem
 ---
 
-# pbakaus/impeccable
+# thedotmack/claude-mem
 
-# Impeccable
+<h1 align="center">
+  <br>
+  <a href="https://github.com/thedotmack/claude-mem">
+    <picture>
+      <source media="(prefers-color-scheme: dark)" srcset="docs/public/claude-mem-logo-for-dark-mode.webp">
+      <source media="(prefers-color-scheme: light)" srcset="docs/public/claude-mem-logo-for-light-mode.webp">
+      <img src="docs/public/claude-mem-logo-for-light-mode.webp" alt="Claude-Mem" width="400">
+    </picture>
+  </a>
+</h1>
 
-The design vocabulary for your coding agent. Steer with `polish` and `bolder`, review with `critique` and `audit`, and catch AI slop before it ships.
+<p align="center">
+  <img alt="Vercel OSS Program" src="https://vercel.com/oss/program-badge-2026.svg" height="24" />
+  &nbsp;&nbsp;&nbsp;
+  <img alt="Greptile" src="docs/public/greptile-wordmark-green.svg" height="24" />
+  &nbsp;&nbsp;&nbsp;
+  <img alt="SerpApi" src="docs/public/serpapi-logo-with-wordmark-gradient.svg" height="24" />
+</p>
 
-From your project root:
+<p align="center">
+  <a href="docs/i18n/README.zh.md">🇨🇳 中文</a> •
+  <a href="docs/i18n/README.zh-tw.md">🇹🇼 繁體中文</a> •
+  <a href="docs/i18n/README.ja.md">🇯🇵 日本語</a> •
+  <a href="docs/i18n/README.pt.md">🇵🇹 Português</a> •
+  <a href="docs/i18n/README.pt-br.md">🇧🇷 Português</a> •
+  <a href="docs/i18n/README.ko.md">🇰🇷 한국어</a> •
+  <a href="docs/i18n/README.es.md">🇪🇸 Español</a> •
+  <a href="docs/i18n/README.de.md">🇩🇪 Deutsch</a> •
+  <a href="docs/i18n/README.fr.md">🇫🇷 Français</a> •
+  <a href="docs/i18n/README.he.md">🇮🇱 עברית</a> •
+  <a href="docs/i18n/README.ar.md">🇸🇦 العربية</a> •
+  <a href="docs/i18n/README.ru.md">🇷🇺 Русский</a> •
+  <a href="docs/i18n/README.pl.md">🇵🇱 Polski</a> •
+  <a href="docs/i18n/README.cs.md">🇨🇿 Čeština</a> •
+  <a href="docs/i18n/README.nl.md">🇳🇱 Nederlands</a> •
+  <a href="docs/i18n/README.tr.md">🇹🇷 Türkçe</a> •
+  <a href="docs/i18n/README.uk.md">🇺🇦 Українська</a> •
+  <a href="docs/i18n/README.vi.md">🇻🇳 Tiếng Việt</a> •
+  <a href="docs/i18n/README.tl.md">🇵🇭 Tagalog</a> •
+  <a href="docs/i18n/README.id.md">🇮🇩 Indonesia</a> •
+  <a href="docs/i18n/README.th.md">🇹🇭 ไทย</a> •
+  <a href="docs/i18n/README.hi.md">🇮🇳 हिन्दी</a> •
+  <a href="docs/i18n/README.bn.md">🇧🇩 বাংলা</a> •
+  <a href="docs/i18n/README.ur.md">🇵🇰 اردو</a> •
+  <a href="docs/i18n/README.ro.md">🇷🇴 Română</a> •
+  <a href="docs/i18n/README.sv.md">🇸🇪 Svenska</a> •
+  <a href="docs/i18n/README.it.md">🇮🇹 Italiano</a> •
+  <a href="docs/i18n/README.el.md">🇬🇷 Ελληνικά</a> •
+  <a href="docs/i18n/README.hu.md">🇭🇺 Magyar</a> •
+  <a href="docs/i18n/README.fi.md">🇫🇮 Suomi</a> •
+  <a href="docs/i18n/README.da.md">🇩🇰 Dansk</a> •
+  <a href="docs/i18n/README.no.md">🇳🇴 Norsk</a>
+</p>
+
+<h4 align="center">Persistent memory compression system built for <a href="https://claude.com/claude-code" target="_blank">Claude Code</a>.</h4>
+
+<p align="center">
+  <a href="LICENSE">
+    <img src="https://img.shields.io/badge/License-Apache%202.0-blue.svg" alt="License">
+  </a>
+  <a href="package.json">
+    <img src="https://img.shields.io/badge/version-15.7.0-green.svg" alt="Version">
+  </a>
+  <a href="package.json">
+    <img src="https://img.shields.io/badge/node-%3E%3D20.0.0-brightgreen.svg" alt="Node">
+  </a>
+  <a href="https://github.com/thedotmack/awesome-claude-code">
+    <img src="https://awesome.re/mentioned-badge.svg" alt="Mentioned in Awesome Claude Code">
+  </a>
+</p>
+
+<p align="center">
+  <a href="https://trendshift.io/repositories/15496" target="_blank">
+    <picture>
+      <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/thedotmack/claude-mem/main/docs/public/trendshift-badge-dark.svg">
+      <source media="(prefers-color-scheme: light)" srcset="https://raw.githubusercontent.com/thedotmack/claude-mem/main/docs/public/trendshift-badge.svg">
+      <img src="https://raw.githubusercontent.com/thedotmack/claude-mem/main/docs/public/trendshift-badge.svg" alt="thedotmack/claude-mem | Trendshift" width="250" height="55"/>
+    </picture>
+  </a>
+</p>
+
+<br>
+
+<table align="center">
+  <tr>
+    <td align="center">
+      <a href="https://github.com/thedotmack/claude-mem">
+        <picture>
+          <img
+            src="https://raw.githubusercontent.com/thedotmack/claude-mem/main/docs/public/cm-preview.gif"
+            alt="Claude-Mem Preview"
+            width="500"
+          >
+        </picture>
+      </a>
+    </td>
+    <td align="center">
+      <a href="https://www.star-history.com/#thedotmack/claude-mem&Date">
+        <picture>
+          <source
+            media="(prefers-color-scheme: dark)"
+            srcset="https://api.star-history.com/image?repos=thedotmack/claude-mem&type=date&theme=dark&legend=top-left"
+          />
+          <source
+            media="(prefers-color-scheme: light)"
+            srcset="https://api.star-history.com/image?repos=thedotmack/claude-mem&type=date&legend=top-left"
+          />
+          <img
+            alt="Star History Chart"
+            src="https://api.star-history.com/image?repos=thedotmack/claude-mem&type=date&legend=top-left"
+            width="500"
+          />
+        </picture>
+      </a>
+    </td>
+  </tr>
+</table>
+
+<p align="center">
+  <a href="#quick-start">Quick Start</a> •
+  <a href="#how-it-works">How It Works</a> •
+  <a href="#mcp-search-tools">Search Tools</a> •
+  <a href="#documentation">Documentation</a> •
+  <a href="#configuration">Configuration</a> •
+  <a href="#troubleshooting">Troubleshooting</a> •
+  <a href="#license">License</a>
+</p>
+
+<p align="center">
+  Claude-Mem seamlessly preserves context across sessions by automatically capturing tool usage observations, generating semantic summaries, and making them available to future sessions. This enables Claude to maintain continuity of knowledge about projects even after sessions end or reconnect.
+</p>
+
+---
+
+## Quick Start
+
+Install claude-mem for Grok Bot:
 
 ```bash
-npx impeccable install
+npx claude-mem install --ide grok-bot
 ```
 
-Reload your coding tool, then run `/impeccable init` in your agent (`$impeccable init` on Codex).
+Grok Bot has no host hooks, so we watch the chat log files. Default is CMEM Pro, the hosted memory. Local observer is opt-in: `--provider host`. Installing this plugin does not install Cursor.
 
-Works with Claude Code, Cursor, Codex CLI, GitHub Copilot, Devin, Replit Agent, Gemini CLI, Grok Build, OpenCode, Google Antigravity, Kiro, Trae, Rovo Dev, Qoder, Mistral Vibe, Pi, Hermes Agent, DeepSeek Harness, and Veto. Full docs live at [impeccable.style/docs](https://impeccable.style/docs).
+**Awareness push pilot (LFG + Orifice):** needle observations (`decision`, `bugfix`, `security_alert`, `sensitive`) are appended as dated `- YYYY-MM-DD [awareness] …` lines into that bot's `memory/log/YYYY-MM.md`. Grok Bot already re-reads the log from disk. This does not write `profile.md`, user-memory, or project memory. Disable with `CLAUDE_MEM_GROK_BOT_AWARENESS_ENABLED=false`.
 
-| Without Impeccable | With Impeccable |
-|---|---|
-| ![Villa Castagneto built without Impeccable: cream background, a thin serif headline with an italic accent, two pill buttons, and flat vector illustrations in rounded cards](https://github.com/pbakaus/impeccable/raw/main/docs/images/readme-without.webp) | ![Villa Castagneto built with Impeccable: a full-bleed engraved night scene of the villa on its cliff above the sea, a condensed cream and vermilion headline, and a month strip along the bottom](https://github.com/pbakaus/impeccable/raw/main/docs/images/readme-with.webp) |
-
-Same model (Fable 5.1), same brief: a fourteen-room family guesthouse on the Ligurian coast. Without Impeccable, it builds the tasteful default: cream page, thin serif, italic accent, pill buttons. With it, the page is built around one picture: the house at night, seen from the water.
-
-For a full project, see the [Neo Mirai case study](https://impeccable.style/cases/neo-mirai): a conference site taken from mockup to shipped page.
-
-## Why
-
-Inter for everything. Purple-to-blue gradients. Cards nested in cards, gray text on colored backgrounds, a rounded-square icon tile above every heading. Ask an agent for a page with no other guidance and these show up again and again, across models and projects.
-
-- **Words for what you want.** "Make it pop" leaves your agent to guess. `/impeccable bolder the pricing cards` loads a playbook written for that one move and points it at one target.
-- **A reviewer.** `critique` scores the design against usability heuristics and ranks what to fix first. `audit` checks accessibility, performance, theming, and responsive behavior, with findings ranked P0 (blocking) to P3 (polish).
-- **A slop detector.** 62 deterministic rules flag the tells above, plus quality problems like cramped padding and skipped headings. No LLM, no API key.
-
-Impeccable is strongest on interfaces that already exist: point it at a page or a component and iterate. It builds new pages too; see [Build something new](https://impeccable.style/docs/new-work) for how to get the most out of that harder mode. To start, pick one component:
-
-```
-/impeccable critique the pricing cards
-```
-
-## How it works
-
-Run `/impeccable init` once per project. It reads your code, asks only what it can't infer (who the product is for, what it needs to do, the constraints), and writes `PRODUCT.md`. Every later command reads it. Run `/impeccable document` to capture your existing visual system in `DESIGN.md`, so changes stay on-brand. [More on context files](https://impeccable.style/docs/context).
-
-Then name a command and a target:
-
-```
-/impeccable critique the onboarding flow
-/impeccable quieter the landing page
-/impeccable polish settings
-/impeccable harden checkout
-```
-
-Or just describe what you want: `/impeccable redo this hero section`. Narrow targets get better results; a single section reviewed closely beats a whole page at a glance. Pin a command you use often with `/impeccable pin audit` to get `/audit` as its own shortcut.
-
-### 24 commands
-
-| | Commands |
-|---|---|
-| **Steer** | `bolder` amplifies safe designs · `quieter` tones down loud ones · `distill` removes what the page doesn't need · `colorize` brings color to a gray interface · `typeset` fixes fonts, hierarchy, and sizing · `layout` fixes spacing and rhythm · `animate` adds transitions and interaction feedback · `delight` adds personality · `overdrive` goes for shaders, spring physics, and scroll-driven effects |
-| **Review** | `critique` is a scored UX review · `audit` is a technical quality report |
-| **Finish** | `polish` is the final pass before shipping · `harden` covers errors, i18n, overflow, and edge cases · `clarify` rewrites unclear copy · `adapt` handles screen sizes and devices · `optimize` fixes loading and rendering performance · `onboard` designs first-run flows and empty states |
-| **Iterate live** | `live` lets you pick an element in the browser and cycle through variants · `generate` produces variants of a named element without manual picking |
-| **Plan and set up** | `shape` plans UX before code · `init` writes `PRODUCT.md` · `document` writes `DESIGN.md` · `extract` pulls repeated patterns into your design system |
-
-The 24th, `craft`, is a deprecated alias for a plain build request. Type `/impeccable` alone to see the list in your agent. Each command has its own page: [impeccable.style/docs](https://impeccable.style/docs).
-
-On Codex, open `/skills` or type `$impeccable` instead of the slash command.
-
-### Live mode
-
-`/impeccable live` opens your running dev server with an overlay. Select an element, pick a direction, and Impeccable hot-swaps variants in place. Accept one and it is written back to your source. It works with Vite, Next, SvelteKit, Astro, Nuxt, and plain HTML. [Iterate in the browser](https://impeccable.style/tutorials/iterate-live).
-
-Live mode edits a local checkout only; don't inject it into a deployed site or weaken a production CSP to make it work. Applying copy edits runs your `package.json`'s optional `impeccable:manual-edit-validate` script with your permissions, so review it before using live mode in an unfamiliar repo.
-
-## Three ways to run the detector
-
-**In your agent.** The design hook scans every UI file your agent edits and hands the findings back before the agent calls the work done. This is where most slop gets caught: without the hook, the detector only runs when someone remembers to run it. It's available on Claude Code, Cursor, Codex, GitHub Copilot, Grok Build, and Hermes Agent, and the installer sets it up. Say yes. [Automatic design checks](https://impeccable.style/docs/hooks).
-
-**In CI or your terminal.** The CLI needs no agent:
+Install with a single command:
 
 ```bash
-npx impeccable detect src/                   # scan a directory
-npx impeccable detect https://example.com    # scan a rendered page (uses your installed Chrome or Edge)
-npx impeccable detect --json .               # machine-readable output
-npx impeccable detect --github src/          # GitHub Actions annotations
-npx impeccable detect --list-rules           # every rule with its id and description
+npx claude-mem install
 ```
 
-Source files like JSX and TSX get the pattern rules only. Rules that need a rendered page, such as low contrast and tiny text, run when you scan a URL, so point the CLI at your dev server too: `npx impeccable detect http://localhost:5173`.
+The installer sets everything up first, then asks you to sign in to claude-mem in your browser (email magic link — no card required). Signing in provisions a memory key for your account and unlocks the **claude-mem observer** with a **30 Day Free Trial**: memory runs off-plan, so you get up to 100% more usage from your plan. When the free trial ends, memory automatically falls back to your Anthropic plan unless you subscribe. After sign-in you pick your memory provider — the claude-mem observer, your own OpenRouter or Gemini key, or your Anthropic plan.
 
-Exit code `2` means findings, `1` means a target couldn't be scanned. To allow your brand font everywhere, run `npx impeccable ignores add-value overused-font Inter --reason "Brand font"`. To turn a rule off for one file, add a comment: `<!-- impeccable-disable overused-font: exported brand doc -->`. [Run a detector scan](https://impeccable.style/docs/detector) · [Configuration and ignores](https://impeccable.style/docs/config).
+Prefer to skip the sign-in? Pass an explicit `--provider` flag, set `CLAUDE_MEM_ONLINE_OPTIN=false`, or run in CI/non-interactive shells — the installer completes without any account interaction.
 
-**In your browser.** The [Chrome extension](https://chromewebstore.google.com/detail/impeccable/bdkgmiklpdmaojlpflclinlofgjfpabf) overlays the same findings on any live page, yours or anyone else's. [Review with a visual overlay](https://impeccable.style/tutorials/critique-with-overlay).
-
-## Installation
+Or install for OpenCode:
 
 ```bash
-npx impeccable install
+npx claude-mem install --ide opencode
 ```
 
-The installer detects your coding tools, asks whether to install for this project or globally, and offers the design hook where your tool supports one. Accept the hook. Reload your tool afterward. `npx impeccable update` refreshes an existing install. For scripts, pass `--providers=claude,codex,cursor` and `--scope=project|global`.
+This works with OpenCode 1.3.4 or later, including OpenCode 2. Restart OpenCode after installing.
 
-Three tools need one more step before the hook runs. In Codex, open `/hooks` and approve the project hook (again after an update that changes it). In Grok Build, run `/hooks-trust` or launch with `--trust`. In Hermes Agent, the hook is a plugin: run `hermes plugins enable impeccable-design-hook` once. [Allow the hook in your harness](https://impeccable.style/docs/hooks#allow-the-hook-in-your-harness).
-
-Node is only needed for `npx`. The skill itself runs a self-contained engine binary that ships next to it or downloads once into `~/.impeccable/bin/`.
-
-<details>
-<summary><b>Claude Code, Copilot, and Grok plugins</b></summary>
-
-**Claude Code:** `/plugin marketplace add pbakaus/impeccable`, then open `/plugin` and install Impeccable.
-
-**GitHub Copilot in VS Code:** install [Impeccable from the Visual Studio Marketplace](https://marketplace.visualstudio.com/items?itemName=renaissance-geek.impeccable) or run `code --install-extension renaissance-geek.impeccable`. Needs VS Code 1.109.3+, Copilot Chat, and a trusted workspace. It installs the skill without the hook. [Details](docs/VSCODE-EXTENSION.md).
-
-**Grok Build:** `grok plugin install pbakaus/impeccable#plugin --trust` installs the skill, agents, and hook.
-
-</details>
-
-<details>
-<summary><b>Git submodule (a pinned version for the whole team)</b></summary>
+Or install for **T3 Code** (Codex and Claude Code providers):
 
 ```bash
-git submodule add https://github.com/pbakaus/impeccable vendor/impeccable
-npx impeccable link --source=vendor/impeccable --providers=claude,cursor
+npx claude-mem install --ide t3code
 ```
 
-Commit `.gitmodules`, the submodule, and the generated links. Teammates run `git submodule update --init --recursive`. To upgrade, run `git submodule update --remote vendor/impeccable`, rerun the `link` command, and commit. Linking installs skills, not hooks. Existing skill folders stay put unless you pass `--force`.
+The installer discovers T3 Code's enabled providers, registers native Claude-Mem plugins in their configured homes, and supports T3-managed Codex. Restart T3 Code, trust the provider's hooks when prompted, and start a new thread. See the [T3 Code integration guide](https://docs.claude-mem.ai/t3code-integration) for custom server settings, status, and removal.
 
-</details>
+Or install for Antigravity CLI ([setup guide](https://docs.claude-mem.ai/antigravity-cli/setup)):
 
-<details>
-<summary><b>Manual copy, no Node required</b></summary>
-
-Download the ZIP for your tool from [impeccable.style](https://impeccable.style), or clone this repo: each tool's build is committed at the repo root. Copy `skills/impeccable` from the folder below into the same place in your project, or into the global folder.
-
-| Tool | Repo folder | Global skills folder |
-|---|---|---|
-| Claude Code | `.claude/` | `~/.claude/skills/` |
-| Cursor | `.cursor/` | |
-| Codex CLI, Replit Agent | `.agents/` | `~/.agents/skills/` |
-| Devin | `.devin/` | `${XDG_CONFIG_HOME:-$HOME/.config}/devin/skills/` |
-| GitHub Copilot | `.github/` | |
-| Gemini CLI | `.gemini/` | |
-| Google Antigravity | `.agent/` | `~/.gemini/config/skills/` |
-| OpenCode | `.opencode/` | |
-| Grok Build | `.grok/` | `~/.grok/skills/` |
-| Hermes Agent | `.hermes/` | `${HERMES_HOME:-$HOME/.hermes}/skills/` |
-| DeepSeek Harness | `.dsh/` | `${DSH_HOME:-$HOME/.dsh}/skills/` |
-| Pi | `.pi/` | |
-| Qoder | `.qoder/` | `~/.qoder/skills/` |
-| Rovo Dev | `.rovodev/` | `~/.rovodev/skills/` |
-| Mistral Vibe | `.vibe/` | `~/.vibe/skills/` |
-| Trae | `.trae/` | `~/.trae/skills/` |
-| Trae China | `.trae-cn/` | `~/.trae-cn/skills/` |
-
-For example: `mkdir -p your-project/.claude/skills && cp -r .claude/skills/impeccable your-project/.claude/skills/`.
-
-Notes:
-- A manual copy skips the design hook and subagents. Run `npx impeccable install` to get them; it writes each tool's hook pointing at the right skill path.
-- OpenCode also needs `.opencode/commands/impeccable.md` copied into your project's `.opencode/commands/` to provide `/impeccable`.
-- Hermes asks you to trust project-local skills once: run `hermes skills trust` from the project root. Global installs need no trust step.
-- Cursor and Gemini CLI may need Agent Skills enabled in settings. See the [Cursor](https://cursor.com/docs/context/skills) and [Gemini CLI](https://geminicli.com/docs/cli/skills/) skills docs.
-- Restart Trae after copying.
-- `impeccable install` and `update` manage a DeepSeek Harness global copy only when `DSH_HOME` is inside your home directory.
-
-</details>
-
-## Project files and git
-
-Impeccable writes its working files under `.impeccable/`. A few are shared project artifacts and belong in the repo: `config.json`, `live/config.json`, `design.json`, `surfaces/*.md`, and `critique/*.md`. Keep `PRODUCT.md` and `DESIGN.md` in the repo too. The rest is screenshots, caches, and runtime state.
-
-<details>
-<summary><b>Copy the <code>.gitignore</code> entries</b></summary>
-
-```gitignore
-# impeccable-ignore-start
-# Ephemeral output, runtime state, and per-dev overrides.
-# The **/ prefix covers .impeccable at the repo root or in a nested workspace.
-# Shared artifacts stay tracked: config.json, live/config.json,
-# design.json, surfaces/*.md, critique/*.md.
-**/.impeccable/config.local.json
-**/.impeccable/hook.cache.json
-**/.impeccable/hook.pending.json
-**/.impeccable/*.png
-**/.impeccable/review/
-**/.impeccable/questions/
-**/.impeccable/live/server.json
-**/.impeccable/live/sessions/
-**/.impeccable/live/previews/
-**/.impeccable/live/annotations/
-**/.impeccable/live/cache/
-**/.impeccable/live/manual-edit-apply-transaction.json
-**/.impeccable/live/manual-edit-events.jsonl
-**/.impeccable/live/manual-edit-evidence/
-**/.impeccable/live/pending-manual-edits.json
-**/.impeccable/live/deferred-svelte-component-accepts.json
-**/.impeccable/live/*.png
-# impeccable-ignore-end
+```bash
+npx claude-mem install --ide antigravity
 ```
 
-</details>
+Or install for OMP (Oh My Pi):
 
-The folders that hold decision-round state (`.impeccable/questions/`, `.impeccable/mocks/worlds/`) also ignore themselves. A `.gitignore` can't untrack a file git already tracks; if you committed one earlier, run `git rm --cached <path>`.
+```bash
+npx claude-mem install --ide omp
+```
 
-## Good to know
+Or install the native Pi extension or DeepSeek Harness plugin:
 
-**Build path.** For new landing pages and showcase surfaces, Impeccable can generate a full-fidelity comp first and build to match it (bolder, slower), or build straight in code (leaner, faster). App screens and documents are always built in code. `init` asks once and saves the answer as `buildPath` in `.impeccable/config.json`; the decision page lets you override it for one session. The choice only appears when your harness can generate images. [Image generation](https://impeccable.style/docs/image-generation) · [Configuration](https://impeccable.style/docs/config).
+```bash
+npx claude-mem install --ide pi
+npx claude-mem install --ide dsh --dsh-profile tui
+```
 
-**Hooks run outside model approval.** In Claude Code, installed command hooks run even when you deny the model's own commands, so the first edit can download the engine. Review installed hooks before unattended runs, or pass `--settings '{"disableAllHooks": true}'` to turn them off for a run. The installer leaves hook entries it didn't add alone.
+Pi and DeepSeek Harness use the worker runtime. See [native harness setup](docs/native-harness-integrations.md) for capture, recall, and troubleshooting.
 
-**Something broken?** `/impeccable doctor` finds stale context files, unused settings, and broken hooks. [Fix setup problems](https://impeccable.style/docs/doctor).
+Or install from the plugin marketplace inside Claude Code:
 
-**Telemetry.** When a new design starts, the skill fetches a set of visual directions from the impeccable.style catalog. Turning telemetry off doesn't stop that request; it stops the anonymous record of which directions were shown and which one you picked, which is how the catalog learns what works. Your project name, files, code, and `PRODUCT.md` are never sent. Disable telemetry with `npx impeccable telemetry off`, `DO_NOT_TRACK=1`, or `"telemetry": false` in `.impeccable/config.json` for the whole project. The full list of what is sent is on the [privacy page](https://impeccable.style/privacy).
+```bash
+/plugin marketplace add thedotmack/claude-mem
 
-## Community
+/plugin install claude-mem
+```
 
-- [Issues](https://github.com/pbakaus/impeccable/issues) for bugs, questions, and ideas. Outside contributions start with an issue; see [DEVELOP.md](docs/DEVELOP.md).
-- [Changelog](https://impeccable.style/changelog) for what shipped.
-- Follow [@pbakaus](https://x.com/pbakaus) for release notes and new rules.
+Restart Claude Code. Context from previous sessions will automatically appear in new sessions.
+
+> **Note:** Claude-Mem is also published on npm, but `npm install -g claude-mem` installs the **SDK/library only** — it does not register the plugin hooks or set up the worker service. Always install via `npx claude-mem install` or the `/plugin` commands above.
+
+### 🦞 OpenClaw Gateway
+
+Install claude-mem as a persistent memory plugin on [OpenClaw](https://openclaw.ai) gateways with a single command:
+
+```bash
+curl -fsSL https://install.cmem.ai/openclaw.sh | bash
+```
+
+The installer handles dependencies, plugin setup, AI provider configuration, worker startup, and optional real-time observation feeds to Telegram, Discord, Slack, and more. See the [OpenClaw Integration Guide](https://docs.claude-mem.ai/openclaw-integration) for details.
+
+**Key Features:**
+
+- 🧠 **Persistent Memory** - Context survives across sessions
+- 📊 **Progressive Disclosure** - Layered memory retrieval with token cost visibility
+- 🔍 **Smart Search (Default)** - Query your project history with the three-step mem-search skill
+- 🖥️ **Local My Work** - Live requests, progress, human handoffs and a saved review queue at the worker URL printed on startup. [Guide](https://docs.claude-mem.ai/usage/my-work). Memory, sessions and settings remain at `/viewer`.
+- 👥 **TeamBrain** - An optional shared workspace beside My Work, with real team work lists, member attribution and linked findings. Each person chooses what to share; personal requests and review notes stay separate. [Set up a team](https://cmem.ai/teambrain/start).
+- 💻 **Claude Desktop Skill** - Search memory from Claude Desktop conversations
+- 🔒 **Privacy Control** - Use `<private>` tags to exclude sensitive content from storage
+- 🖼️ **Screenshots (opt-in, off by default)** - Keep converted copies of tool screenshots under `~/.claude-mem/media-v1/`, upload them to cmem.ai only when Cloud Sync is on, and send them to the observer model only when image inference is separately enabled ([details](https://docs.claude-mem.ai/configuration#screenshots-and-images-opt-in))
+- ⚙️ **Context Configuration** - Fine-grained control over what context gets injected
+- 🤖 **Automatic Operation** - No manual intervention required
+- 🔗 **Citations** - Reference past observations with IDs through the worker API or view all in the web viewer
+
+---
+
+## Documentation
+
+📚 **[View Full Documentation](https://docs.claude-mem.ai/)** - Browse on official website
+
+### Getting Started
+
+- **[Installation Guide](https://docs.claude-mem.ai/installation)** - Quick start & advanced installation
+- **[Usage Guide](https://docs.claude-mem.ai/usage/getting-started)** - How Claude-Mem works automatically
+- **[Search Tools](https://docs.claude-mem.ai/usage/search-tools)** - Query your project history with natural language
+- **[Cloud Sync](https://docs.claude-mem.ai/cloud-sync)** - Back up your memories to cmem.ai — no daemon, the worker syncs on write
+
+### Best Practices
+
+- **[Context Engineering](https://docs.claude-mem.ai/context-engineering)** - AI agent context optimization principles
+- **[Progressive Disclosure](https://docs.claude-mem.ai/progressive-disclosure)** - Philosophy behind Claude-Mem's context priming strategy
+
+### Architecture
+
+- **[Overview](https://docs.claude-mem.ai/architecture/overview)** - System components & data flow
+- **[Architecture Evolution](https://docs.claude-mem.ai/architecture-evolution)** - The journey from v3 to v5
+- **[Hooks Architecture](https://docs.claude-mem.ai/hooks-architecture)** - How Claude-Mem uses lifecycle hooks
+- **[Hooks Reference](https://docs.claude-mem.ai/architecture/hooks)** - Every hook entry explained
+- **[Worker Service](https://docs.claude-mem.ai/architecture/worker-service)** - HTTP API & Bun management
+- **[Database](https://docs.claude-mem.ai/architecture/database)** - SQLite schema & FTS5 search
+- **[Search Architecture](https://docs.claude-mem.ai/architecture/search-architecture)** - Hybrid search with Chroma vector database
+
+### Configuration & Development
+
+- **[Configuration](https://docs.claude-mem.ai/configuration)** - Environment variables & settings
+- **[Development](https://docs.claude-mem.ai/development)** - Building, testing, contributing
+- **[Troubleshooting](https://docs.claude-mem.ai/troubleshooting)** - Common issues & solutions
+
+---
+
+## How It Works
+
+**Core Components:**
+
+1. **Lifecycle Hooks** - SessionStart, UserPromptSubmit, PreToolUse, PostToolUse, Stop, SessionEnd. Each is one shell-free command, `claude-mem hook claude-code <event>`, run by a small launcher that the installer puts on PATH
+2. **Smart Install** - Cached dependency checker (Setup hook on `claude --init` / `--maintenance`, plus `npx claude-mem install` / `repair`)
+3. **Worker Service** - Local HTTP API with web viewer UI and search endpoints, managed by Bun
+4. **SQLite Database** - Stores sessions, observations, summaries
+5. **mem-search Skill** - Natural language queries with progressive disclosure
+6. **Chroma Vector Database** - Hybrid semantic + keyword search for intelligent context retrieval
+
+See [Architecture Overview](https://docs.claude-mem.ai/architecture/overview) for details.
+
+---
+
+## MCP Search Tools
+
+Claude-Mem provides intelligent memory search through **4 MCP tools** following a token-efficient **3-layer workflow pattern**:
+
+**The 3-Layer Workflow:**
+
+1. **`search`** - Get compact index with IDs (~50-100 tokens/result)
+2. **`timeline`** - Get chronological context around interesting results
+3. **`get_observations`** - Fetch full details ONLY for filtered IDs (~500-1,000 tokens/result)
+
+**How It Works:**
+- Claude uses MCP tools to search your memory
+- Start with `search` to get an index of results
+- Use `timeline` to see what was happening around specific observations
+- Use `get_observations` to fetch full details for relevant IDs
+- **~10x token savings** by filtering before fetching details
+
+**Available MCP Tools:**
+
+1. **`search`** - Search memory index with full-text queries, filters by type/date/project
+2. **`timeline`** - Get chronological context around a specific observation or query
+3. **`get_observations`** - Fetch full observation details by IDs (always batch multiple IDs)
+
+**Example Usage:**
+
+```typescript
+// Step 1: Search for index
+search(query="authentication bug", type="bugfix", limit=10)
+
+// Step 2: Review index, identify relevant IDs (e.g., #123, #456)
+
+// Step 3: Fetch full details
+get_observations(ids=[123, 456])
+```
+
+See [Search Tools Guide](https://docs.claude-mem.ai/usage/search-tools) for detailed examples.
+
+---
+
+## System Requirements
+
+- **Node.js**: 20.0.0 or higher
+- **Claude Code**: Latest version with plugin support
+- **Bun**: JavaScript runtime and process manager (auto-installed if missing)
+- **uv**: Python package manager for vector search (auto-installed if missing)
+- **SQLite 3**: For persistent storage (bundled)
+
+---
+### Windows Setup Notes
+
+If you see an error like:
+
+```powershell
+npm : The term 'npm' is not recognized as the name of a cmdlet
+```
+
+Make sure Node.js and npm are installed and added to your PATH. Download the latest Node.js installer from https://nodejs.org and restart your terminal after installation.
+
+Claude Code hooks do not need Git Bash. Each hook runs `claude-mem` directly, and `npx claude-mem install` places that launcher at `%LOCALAPPDATA%\claude-mem\bin\claude-mem.exe` and adds the folder to your user Path. Restart your terminal or IDE afterwards so Claude Code picks up the new Path. If hooks report `Executable not found in $PATH: "claude-mem"`, run `npx claude-mem doctor` and see [Troubleshooting](https://docs.claude-mem.ai/troubleshooting#claude-mem-command-not-found-in-hooks).
+
+---
+
+## Configuration
+
+Settings are managed in `~/.claude-mem/settings.json` (auto-created with defaults on first run). Configure AI model, worker port, data directory, log level, and context injection settings.
+
+To include observations from every harness in Claude Code and Codex SessionStart context, set `"CLAUDE_MEM_SESSION_START_INCLUDE_ALL_SOURCES": "true"` in that file, or enable **Include all sources at session start** in the viewer settings. The default is `"false"`, which limits startup context to the current harness. The observation count limit still applies across the selected sources.
+
+See the **[Configuration Guide](https://docs.claude-mem.ai/configuration)** for all available settings and examples.
+
+### Mode & Language Configuration
+
+Claude-Mem supports multiple workflow modes and languages via the `CLAUDE_MEM_MODE` setting.
+
+This option controls both:
+- The workflow behavior (e.g. code, chill, investigation)
+- The language used in generated observations
+
+#### How to Configure
+
+Edit your settings file at `~/.claude-mem/settings.json`:
+
+```json
+{
+  "CLAUDE_MEM_MODE": "code--zh"
+}
+```
+
+Modes are defined in `plugin/modes/`. To see all available modes locally:
+
+```bash
+ls ~/.claude/plugins/marketplaces/thedotmack/plugin/modes/
+```
+
+#### Available Modes
+
+| Mode | Description |
+|------------|-------------------------|
+| `code` | Default English mode |
+| `code--zh` | Simplified Chinese mode |
+| `code--ja` | Japanese mode |
+
+Language-specific modes follow the pattern `code--[lang]` where `[lang]` is the ISO 639-1 language code (e.g., `zh` for Chinese, `ja` for Japanese, `es` for Spanish).
+
+> Note: `code--zh` (Simplified Chinese) is already built-in — no additional installation or plugin update is required.
+
+#### After Changing Mode
+
+Restart Claude Code to apply the new mode configuration.
+---
+
+## Development
+
+See the **[Development Guide](https://docs.claude-mem.ai/development)** for build instructions, testing, and contribution workflow.
+
+---
+
+## Troubleshooting
+
+If experiencing issues, describe the problem to Claude and the troubleshoot skill will automatically diagnose and provide fixes.
+
+See the **[Troubleshooting Guide](https://docs.claude-mem.ai/troubleshooting)** for common issues and solutions.
+
+---
+
+## Bug Reports
+
+Create comprehensive bug reports with the automated generator:
+
+```bash
+cd ~/.claude/plugins/marketplaces/thedotmack
+npm run bug-report
+```
+
+## Contributing
+
+Contributions are welcome! Please:
+
+1. Fork the repository
+2. Create a feature branch
+3. Make your changes with tests
+4. Update documentation
+5. Submit a Pull Request against `main`
+
+Releases ship from `main` and are published to npm.
+
+See [Development Guide](https://docs.claude-mem.ai/development) for contribution workflow.
+
+---
 
 ## License
 
-Apache 2.0. See [LICENSE](LICENSE). Impeccable started from Anthropic's [frontend-design](https://github.com/anthropics/skills/tree/main/skills/frontend-design) skill.
+Claude-Mem is licensed under the Apache License 2.0.
+
+We chose Apache-2.0 because durable agentic memory should be easy to embed in
+developer tools, local agents, MCP servers, enterprise systems, robotics stacks,
+and production agent harnesses.
+
+See the [LICENSE](LICENSE) file for full details. See [docs/license.md](docs/license.md)
+and [docs/ip-boundary.md](docs/ip-boundary.md) for licensing scope and the
+open/commercial boundary.
+
+**Note on Ragtime**: The `ragtime/` directory is licensed under the **Apache License 2.0**. See [ragtime/LICENSE](ragtime/LICENSE) for details.
 
 ---
 
-Created by [Paul Bakaus](https://www.paulbakaus.com)
+## Support
+
+- **Documentation**: [docs/](docs/)
+- **Issues**: [GitHub Issues](https://github.com/thedotmack/claude-mem/issues)
+- **Repository**: [github.com/thedotmack/claude-mem](https://github.com/thedotmack/claude-mem)
+- **Official X Account**: [@Claude_Memory](https://x.com/Claude_Memory)
+- **Official Discord**: [Join Discord](https://discord.com/invite/J4wttp9vDu)
+- **Author**: Alex Newman ([@thedotmack](https://github.com/thedotmack))
+
+---
+
+**Built with Claude Agent SDK** | **Works with Claude Code** | **Made with TypeScript**
+
+---
+
+### What About CMEM?
+
+CMEM is a token created by a 3rd party but officially embraced by the creator of Claude-Mem (Alex Newman, @thedotmack). The token acts as a community catalyst for growth and a vehicle for bringing CMEM to the developers and knowledge workers that need it most.
+
+Official BASE CA: 0x76b1967eec0ccaeb001bbbb2b40dc4badba31ba3
